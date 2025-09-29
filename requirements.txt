@@ -1,0 +1,6 @@
+pdfminer.six
+transformers
+torch
+sentencepiece
+reportlab
+tf-keras
