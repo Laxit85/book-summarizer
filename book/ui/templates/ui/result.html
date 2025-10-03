@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Summarizer Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: #1e1e2f;
+            color: #e0e0e0;
+        }
+        .welcome-banner {
+            background-color: #6a0dad;
+            background-image: url('/static/20251003_1318_Animated Book Summary_simple_compose_01k6mgkpkmf9nsbtz3nty4k755.png');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffdd57;
+            padding: 50px 10px 10px 10px;
+            border-radius: 0;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            height: 400px;
+            line-height: normal;
+            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.6);
+            margin: 0;
+            animation: fadeInDown 0.8s ease forwards;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 1.2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h1 {
+            color: #d1c4e9;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .chapter {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #4a3f7a;
+            padding-bottom: 25px;
+            background: #2c2a44;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(106, 13, 173, 0.3);
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: box-shadow 0.3s ease;
+        }
+        .chapter:hover {
+            box-shadow: 0 6px 30px rgba(126, 63, 255, 0.6);
+        }
+        .summary {
+            background-color: #3a3756;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #dcd6f7;
+            transition: background-color 0.3s ease;
+        }
+        .summary:hover {
+            background-color: #4a3f7a;
+        }
+        .mcq {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #4a3f7a;
+            color: #e0dfff;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .mcq:hover {
+            background-color: #7e3fff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(126, 63, 255, 0.7);
+        }
+        .options {
+            margin-left: 25px;
+            list-style-type: disc;
+            color: #cbbcff;
+        }
+        .options li {
+            transition: color 0.3s ease;
+        }
+        .options li:hover {
+            color: #7e3fff;
+            cursor: pointer;
+        }
+        a.back-link {
+            display: block;
+            max-width: 820px;
+            margin: 20px auto;
+            text-align: center;
+            text-decoration: none;
+            color: #6a0dad;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        a.back-link:hover {
+            color: #7e3fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-banner">
+        Book Summarizer Results
+    </div>
+    <a href="{% url 'home' %}" class="back-link">&larr; Back to Upload</a>
+    {% if results %}
+        {% for result in results %}
+            <div class="chapter">
+                <h3>{{ result.chapter }}</h3>
+                <div class="summary">
+                    <strong>Summary:</strong><br>
+                    {{ result.summary }}
+                </div>
+                <div class="mcqs">
+                    <strong>MCQs:</strong>
+                    {% for mcq in result.mcqs %}
+                        <div class="mcq">
+                            <p>{{ mcq.question }}</p>
+                            <ul class="options">
+                                {% for option in mcq.options %}
+                                    <li>{{ option }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p><em>Answer: {{ mcq.answer }}</em></p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No results to display.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Summarizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: #1e1e2f;
+            color: #e0e0e0;
+        }
+        .welcome-banner {
+            background-color: #6a0dad;
+            background-image: url('/static/20251003_1318_Animated Book Summary_simple_compose_01k6mgkpkmf9nsbtz3nty4k755.png');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffdd57;
+            padding: 50px 10px 10px 10px;
+            border-radius: 0;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            height: 800px;
+            line-height: normal;
+            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.6);
+            margin: 0;
+            animation: fadeInDown 0.8s ease forwards;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 1.2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h1 {
+            color: #d1c4e9;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        form {
+            margin-bottom: 30px;
+            text-align: center;
+            background: #2c2c44;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(106, 13, 173, 0.4);
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input[type="file"] {
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #6a0dad;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #3a3756;
+            color: #e0e0e0;
+            font-size: 15px;
+        }
+        button {
+            padding: 14px 30px;
+            background-color: #6a0dad;
+            color: #f0e6ff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background-color 0.4s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.5);
+        }
+        button:hover {
+            background-color: #7e3fff;
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(126, 63, 255, 0.7);
+        }
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 5px #ff6b6b;
+        }
+        .chapter {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #4a3f7a;
+            padding-bottom: 25px;
+            background: #2c2a44;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(106, 13, 173, 0.3);
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: box-shadow 0.3s ease;
+        }
+        .chapter:hover {
+            box-shadow: 0 6px 30px rgba(126, 63, 255, 0.6);
+        }
+        .summary {
+            background-color: #3a3756;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #dcd6f7;
+            transition: background-color 0.3s ease;
+        }
+        .summary:hover {
+            background-color: #4a3f7a;
+        }
+        .mcq {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #4a3f7a;
+            color: #e0dfff;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .mcq:hover {
+            background-color: #7e3fff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(126, 63, 255, 0.7);
+        }
+        .options {
+            margin-left: 25px;
+            list-style-type: disc;
+            color: #cbbcff;
+        }
+        .options li {
+            transition: color 0.3s ease;
+        }
+        .options li:hover {
+            color: #7e3fff;
+            cursor: pointer;
+        }
+    </style>
+    <style>
+        /* Animations and hover effects */
+        .welcome-banner {
+            animation: fadeInDown 1s ease forwards;
+            transition: background-color 0.3s ease;
+        }
+        .welcome-banner:hover {
+            background-color: #2980b9;
+            cursor: default;
+        }
+        button {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .chapter {
+            animation: fadeInUp 0.8s ease forwards;
+            transition: box-shadow 0.3s ease;
+        }
+        .chapter:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .summary {
+            transition: background-color 0.3s ease;
+        }
+        .summary:hover {
+            background-color: #d0d7de;
+        }
+        .mcq {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .mcq:hover {
+            background-color: #d6eaff;
+            transform: translateX(5px);
+        }
+        .options li {
+            transition: color 0.3s ease;
+        }
+        .options li:hover {
+            color: #3498db;
+            cursor: pointer;
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-banner">
+        Welcome to the Book Summarizer! Upload your book to get started.
+    </div>
+    <h1>Book Summarizer</h1>
+    <p style="max-width: 600px; margin: 0 auto 30px auto; font-size: 18px; color: #555; text-align: center;">
+        This web application allows you to upload your book in PDF or TXT format and automatically generates concise chapter summaries along with multiple-choice questions to help you better understand and retain the content.
+        <br><br>
+        Simply select your file, click "Summarize," and receive clear, structured insights for each chapter. This tool is designed to enhance your reading experience, improve comprehension, and assist in studying or reviewing key points efficiently.
+    </p>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".pdf,.txt" required>
+        <br>
+        <button type="submit">Summarize</button>
+    </form>
+    
+    {% if results %}
+        <h2>Results</h2>
+        {% for result in results %}
+            <div class="chapter">
+                <h3>{{ result.chapter }}</h3>
+                <div class="summary">
+                    <strong>Summary:</strong><br>
+                    {{ result.summary }}
+                </div>
+                <div class="mcqs">
+                    <strong>MCQs:</strong>
+                    {% for mcq in result.mcqs %}
+                        <div class="mcq">
+                            <p>{{ mcq.question }}</p>
+                            <ul class="options">
+                                {% for option in mcq.options %}
+                                    <li>{{ option }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p><em>Answer: {{ mcq.answer }}</em></p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <section id="contact" style="background-color: #2c2c44; padding: 40px 20px; border-radius: 12px; max-width: 800px; margin: 40px auto 20px auto; text-align: center; box-shadow: 0 4px 20px rgba(106, 13, 173, 0.4); color: #cbbcff;">
+        <h3 style="color: #d1c4e9; font-weight: 600; margin-bottom: 20px;">Contact Us</h3>
+        <p>Email: jangidlaxit88@gmail.com</p>
+        <p>Phone: +91 7878429752</p>
+
+        <br>
+        <h4 style="color: #f0e6ff; font-weight: 500; margin-top: 30px; margin-bottom: 20px;">Send us a message</h4>
+        {% if success %}
+            <p style="color: #7fff7f; font-weight: 600;">{{ success }}</p>
+        {% endif %}
+        <form method="post" style="max-width: 500px; margin: 0 auto;">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #6a0dad; border-radius: 6px; background-color: #3a3756; color: #e0e0e0; font-size: 15px; transition: border-color 0.3s ease, box-shadow 0.3s ease;">
+            <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #6a0dad; border-radius: 6px; background-color: #3a3756; color: #e0e0e0; font-size: 15px; transition: border-color 0.3s ease, box-shadow 0.3s ease;">
+            <textarea name="message" placeholder="Your Message" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #6a0dad; border-radius: 6px; background-color: #3a3756; color: #e0e0e0; font-size: 15px; height: 120px; resize: vertical; transition: border-color 0.3s ease, box-shadow 0.3s ease;"></textarea>
+            <button type="submit" style="padding: 14px 30px; background-color: #6a0dad; color: #f0e6ff; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; transition: background-color 0.4s ease, transform 0.3s ease; box-shadow: 0 4px 15px rgba(106, 13, 173, 0.5);">Send Message</button>
+        </form>
+    </section>
+    <footer style="background-color: #2c3e50; color: white; padding: 15px; text-align: center; border-radius: 8px; max-width: auto;">
+        <p style="font-size: 14px;">&copy; 2024 Book Summarizer. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
